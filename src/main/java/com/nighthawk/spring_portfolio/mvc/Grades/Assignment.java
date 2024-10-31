@@ -3,6 +3,8 @@ package com.nighthawk.spring_portfolio.mvc.Grades;
 
 import com.nighthawk.spring_portfolio.mvc.person.Person;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -34,9 +36,11 @@ public class Assignment {
     private String assignmentName;
 
 
-    public Assignment(String assignmentName){
-        this.assignmentName = assignmentName; 
-    }
+    //public Assignment(String assignmentName){
+        //this.assignmentName = assignmentName; 
+    //}
 
+
+   
 }
 
