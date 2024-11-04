@@ -1,0 +1,8 @@
+-- database: ./sqlite.db
+
+SELECT person.name,assignment.assignment_name
+,user_assignments.grade 
+FROM user_assignments,person, assignment
+WHERE userid = person.id
+AND assignmentid = assignment.id
+

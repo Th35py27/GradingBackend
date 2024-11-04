@@ -36,6 +36,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/people/**").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/api/person/**").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/api/person/**").hasAuthority("ROLE_ADMIN")
+                //.requestMatchers(HttpMethod.POST, "/api/assignments/**").hasAuthority("ROLE_ADMIN")
+                //.requestMatchers(HttpMethod.GET, "/api/assignments/**").hasAuthority("ROLE_ADMIN")
+
             )
             .cors(Customizer.withDefaults())
             .headers(headers -> headers
@@ -59,6 +62,8 @@ public class SecurityConfig {
                 .requestMatchers("/mvc/person/read/**").authenticated()
                 .requestMatchers("/mvc/person/update/**").authenticated()
                 .requestMatchers("/mvc/person/delete/**").hasAuthority("ROLE_ADMIN")
+                //.requestMatchers("/api/assignments/add/**").hasAuthority("ROLE_ADMIN")
+                //.requestMatchers("/api/assignments/get/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers(HttpMethod.GET,"/login").permitAll()
                 .requestMatchers(HttpMethod.POST,"/authenticateForm").permitAll()
                 .requestMatchers("/**").permitAll()

@@ -4,6 +4,7 @@ package com.nighthawk.spring_portfolio.mvc.Grades;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import jakarta.persistence.CascadeType;
 import org.springframework.http.HttpStatus;
@@ -24,30 +25,28 @@ import com.nighthawk.spring_portfolio.mvc.Grades.Assignment;
 import com.nighthawk.spring_portfolio.security.JwtTokenUtil;
 
 @RestController
-@RequestMapping("/api/assignments")
-public class AssignmentApiController {
+@RequestMapping("/api/userassignments")
+public class UserAssignmentsApiController {
     
     @Autowired
-    private AssignmentJpaRepository repository;
+    private UserAssignmentsJpaRepository repository; 
+
+
     
-    private JwtTokenUtil jwtTokenUtil;
-    //jwtTokenUtil.
-
-
+    
     @PostMapping("/add")
-    public ResponseEntity<Assignment> addAssignment(@RequestBody Assignment assignmentName) {
+    public ResponseEntity<UserAssignments> addAssignment(@RequestBody UserAssignments assignment) {
 
-        Assignment savedAssignment = repository.save(assignmentName);
-        return new ResponseEntity<>(savedAssignment, HttpStatus.CREATED); 
+        UserAssignments newAssignment = repository.save(assignment);
+        return new ResponseEntity<>(newAssignment, HttpStatus.CREATED); 
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<List<Assignment>> getNames() {
-        return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
-    }
 
+    @GetMapping("/get/{userid}")
+    public ResponseEntity<List<UserAssignmentsSummary>> getUserAssignments(@PathVariable int userid) {
+        List<UserAssignmentsSummary> summaries = repository.findUserAssignmentsSummaries(userid);
+        return new ResponseEntity<>(summaries, HttpStatus.OK);
+    }
     
-
-
-
+     
 }
