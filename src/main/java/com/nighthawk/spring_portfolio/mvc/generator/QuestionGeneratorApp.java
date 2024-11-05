@@ -18,8 +18,8 @@ public class QuestionGeneratorApp {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionGeneratorApp.class);
     
-    private static final String GROQ_API_KEY = "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"; // Your GroqCloud API key
-    private static final String API_URL = "https://api.groq.com/openai/v1/chat/completions"; // GroqCloud API URL
+    private static final String GROQ_API_KEY = "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"; 
+    private static final String API_URL = "https://api.groq.com/openai/v1/chat/completions"; 
 
     public static void main(String[] args) {
         SpringApplication.run(QuestionGeneratorApp.class, args);
@@ -35,18 +35,16 @@ public class QuestionGeneratorApp {
 
     private String createPrompt(UserRequest userRequest) {
         StringBuilder prompt = new StringBuilder();
-        if (userRequest.isMultipleChoice()) {
-            prompt.append("Generate a multiple-choice question about ")
-                  .append(userRequest.getTopic())
-                  .append(". Ensure the question is clear and provides specific instructions.")
-                  .append(" Include four options (A, B, C, D), with one correct answer.");
+        prompt.append("Generate a question about ").append(userRequest.getTopic()).append(". ");
+        
+        if (userRequest.getRequirements().toLowerCase().contains("mc")) {
+            prompt.append("Make it a multiple-choice question with four options (A, B, C, D) and one correct answer. ");
         } else {
-            prompt.append("Generate a question about ")
-                  .append(userRequest.getTopic())
-                  .append(". The question should guide students to write a code block fulfilling the requirements: ")
-                  .append(userRequest.getRequirements())
-                  .append(". Just ask the question; don't include your descriptions.");
+            prompt.append("The question should guide students to write a code block or free response based on these requirements: ")
+                  .append(userRequest.getRequirements()).append(". ");
         }
+        
+        prompt.append("Format the question according to these instructions: ").append(userRequest.getRequirements()).append(".");
         return prompt.toString();
     }
 
@@ -84,7 +82,6 @@ public class QuestionGeneratorApp {
 class UserRequest {
     private String topic;
     private String requirements;
-    private boolean isMultipleChoice;
 
     // Getters and Setters
     public String getTopic() { return topic; }
@@ -92,7 +89,4 @@ class UserRequest {
 
     public String getRequirements() { return requirements; }
     public void setRequirements(String requirements) { this.requirements = requirements; }
-
-    public boolean isMultipleChoice() { return isMultipleChoice; }
-    public void setMultipleChoice(boolean multipleChoice) { isMultipleChoice = multipleChoice; }
 }
