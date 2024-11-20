@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/comments")
+@CrossOrigin(origins = "http://127.0.0.1:4100", allowCredentials = "true")
 public class CommentApiController {
+
+     private static final Logger logger = LoggerFactory.getLogger(CommentApiController.class);
     @Autowired
     private CommentJpaRepository commentRepository;
 
@@ -33,7 +38,9 @@ public class CommentApiController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         if (commentRepository.existsById(id)) {
+            logger.info("Comment exists, attempting to delete...");
             commentRepository.deleteById(id);
+            logger.info("Comment deleted successfully.");
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
