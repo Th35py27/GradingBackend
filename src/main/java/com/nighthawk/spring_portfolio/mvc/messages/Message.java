@@ -25,7 +25,7 @@ public class Message implements Comparable<Message> {
 
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "message", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 
     // Additional constructor if you want to set content only
