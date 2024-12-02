@@ -38,7 +38,7 @@ public class QuestionGeneratorApp {
         prompt.append("Generate a question about ").append(userRequest.getTopic()).append(". ");
         
         if (userRequest.getRequirements().toLowerCase().contains("mc")) {
-            prompt.append("Make it a multiple-choice question with four options (A, B, C, D) and one correct answer. When giving the answer, just give the letter");
+            prompt.append("Make it a multiple-choice question with four options (A, B, C, D) and one correct answer.");
         } else {
             prompt.append("Don't explain why you made the quesiton, don't give a title such as here's a question about blah blah. just ask the question. The question should guide students to write a code block or free response based on these requirements: ")
                   .append(userRequest.getRequirements()).append(". ");
