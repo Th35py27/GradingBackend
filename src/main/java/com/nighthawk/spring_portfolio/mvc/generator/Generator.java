@@ -10,19 +10,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 @SpringBootApplication
 @RestController
 @RequestMapping("/generate")
 @CrossOrigin(origins = "*")
-public class QuestionGeneratorApp {
+public class Generator {
 
-    private static final Logger logger = LoggerFactory.getLogger(QuestionGeneratorApp.class);
+    private static final Logger logger = LoggerFactory.getLogger(Generator.class);
     
     private static final String GROQ_API_KEY = "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"; 
     private static final String API_URL = "https://api.groq.com/openai/v1/chat/completions"; 
 
     public static void main(String[] args) {
-        SpringApplication.run(QuestionGeneratorApp.class, args);
+        SpringApplication.run(Generator.class, args);
     }
 
     @PostMapping("/question")
